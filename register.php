@@ -1,3 +1,4 @@
+<?php include('server.php');?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +40,7 @@
                 <button type="submit" name="register" class="button">Register</button>
             </div>
             <p>
-                Already registered? <a href="login.php">Sign in</a>
+                Already registered? <a href="login.php">Login</a>
             </p>
         </form>
     </body>

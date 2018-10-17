@@ -8,6 +8,7 @@
 
     <body>
         <?php include_once("header.php")?>
+        <?php print_r ($_SESSION); ?>
         <div class="content">
             <?php if (isset($_SESSION['success'])): ?>
                 <div class="error success">

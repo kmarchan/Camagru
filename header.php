@@ -6,7 +6,8 @@
 				<div align="left">
 					<a href="http://localhost:8080/Camagru/index.php">Home</a>
 				</div>
-				<div class="menue">
+				<div align="left">
+					<a href="http://localhost:8080/Camagru/login.php">Login</a>
 				</div>
 			</td>
 			<td align="right">

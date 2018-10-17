@@ -10,14 +10,14 @@
         <div class="header" id="head">
             <h2>Login</h2>
         </div>
-        <form method="post" action="register.php">
-            <div class="input-group">
+        <form method="post" action="index.php">
+            <div class="input-group"
                 <label>Username</label>
                 <input type="text" name="Username">
             </div>
             <div class="input-group">
                 <label>Password</label>
-                <input type="text" name="password">
+                <input type="password" name="password">
             </div>
             <div class="input-group">
                 <button type="submit" name="login" class="button">Login</button>

@@ -17,17 +17,25 @@ body {
     border: 2px solid #EFCE5B;
     box-shadow: 10px 5px 20px #EFCE5B inset;
 }
+.error {
+    color: red;
+    background: #ff000048;
+    border-radius: 30px;
+    padding: 10px;
+}
 #head {
     width: 30%;
     border-radius: 30px 30px 0px 0px;
     border-bottom: none;
 }
+
 form {
     width: 30%;
     margin: 0px auto;
     padding: 20px;
     border: 2px solid #EFCE5B;
     background: white;
+    color: #1F2C34;
     border-radius: 0px 0px 30px 30px;
 }
 .input-group {

@@ -1,26 +1,27 @@
 <?php
+require('connect.php');
 // include('connect_database.php');
-$servername = "localhost";
-$username = "root";
-$password = "c3x6TkahjMZCgw";
-$dbname = "camagru_db";
-$conn = mysqli_connect($servername, $username, $password);
+// $servername = "localhost";
+// $username = "root";
+// $password = "c3x6TkahjMZCgw";
+// $dbname = "camagru_db";
+$conn = mysqli_connect($servername, $ad_username, $ad_password);
 $users = "CREATE TABLE $dbname.users (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR (255) UNIQUE,
-    firstname VARCHAR (255),
+    name VARCHAR (255),
     surname VARCHAR (255),
     email VARCHAR (255) UNIQUE,
     password VARCHAR (255))";
-$users = "CREATE TABLE $dbname.users (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR (255) UNIQUE,
-    firstname VARCHAR (255),
-    surname VARCHAR (255),
-    email VARCHAR (255) UNIQUE,
-    password VARCHAR (255),
-    confirmed BIT DEFAULT 0,
-    confirmcode INT)";
+// $users = "CREATE TABLE $dbname.users (
+//     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+//     username VARCHAR (255) UNIQUE,
+//     name VARCHAR (255),
+//     surname VARCHAR (255),
+//     email VARCHAR (255) UNIQUE,
+//     password VARCHAR (255),
+//     confirmed BIT DEFAULT 0,
+//     confirmcode INT)";
     
 $sqldb = "CREATE DATABASE $dbname";
 $deleteDB = " DROP DATABASE $dbname";
@@ -41,5 +42,5 @@ else
 {
     echo "Error creating database: " . $conn->error;
 }
-$conn->close();
+// $conn->close();
 ?>

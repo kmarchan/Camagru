@@ -1,10 +1,10 @@
 <?php
-require('connect.php');
+// require('connect.php');
 // include('connect_database.php');
-// $servername = "localhost";
-// $username = "root";
-// $password = "c3x6TkahjMZCgw";
-// $dbname = "camagru_db";
+$servername = "localhost";
+$ad_username = "root";
+$ad_password = "c3x6TkahjMZCgw";
+$dbname = "camagru_db";
 $conn = mysqli_connect($servername, $ad_username, $ad_password);
 $users = "CREATE TABLE $dbname.users (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -22,7 +22,7 @@ $users = "CREATE TABLE $dbname.users (
 //     password VARCHAR (255),
 //     confirmed BIT DEFAULT 0,
 //     confirmcode INT)";
-    
+
 $sqldb = "CREATE DATABASE $dbname";
 $deleteDB = " DROP DATABASE $dbname";
 mysqli_query($conn, $deleteDB);
@@ -43,4 +43,5 @@ else
     echo "Error creating database: " . $conn->error;
 }
 // $conn->close();
+
 ?>

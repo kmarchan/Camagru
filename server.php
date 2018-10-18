@@ -1,41 +1,65 @@
 <?php
     session_start();
     require('connect.php');
-    // start_session();
     $username = "";
     $email = "";
     $name = "";
     $surname = "";
     $errors = array();
 
-    $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password);
-    if (isset($_POST['register'])) {
+    $opt = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+    ];
+
+    $db = new PDO("mysql:shost=$servername;dbname=$dbname", $ad_username, $ad_password);
+    if (!$db)
+    {
+    	die("Connection failed: " . mysqli_connect_error());
+    }
+    if (isset($_POST['register']))
+    {
         $username = ($_POST['username']);
         $name = ($_POST['name']);
         $surname = ($_POST['surname']);
         $email = ($_POST['email']);
         $password_1 = ($_POST['password_1']);
         $password_2 = ($_POST['password_2']);
-
-        if(empty($username)) {
+        // console.log($username);
+        if(empty($username))
+        {
             array_push($errors, "Username is required");
         }
-        if(empty($name)) {
+        if(empty($name))
+        {
             array_push($errors, "Name is required");
         }
-        if(empty($surname)) {
+        if(empty($surname))
+        {
             array_push($errors, "Surname is required");
         }
-        if(empty($email)) {
+        if(empty($email))
+        {
             array_push($errors, "Email is required");
         }
-        if(empty($password_1)) {
+        if(empty($password_1))
+        {
             array_push($errors, "Password is required");
         }
-        if($password_1 != $password_2) {
+        if($password_1 != $password_2)
+        {
             array_push($errors, "The two passwords do not match");
         }
-        if(count($errors == 0)) {
+        $stmt = $conn->prepare("SELECT * FROM camagru_db.users WHERE username = '$username' OR email = '$password'");
+        $stmt->execute(["usr"=>$username, "eml"=>$email]);
+        $results = $stmt->fetchAll();
+        if (sizeof($results) >= 1)
+        {
+          array_push($errors, "Username/Email already in use");
+        }
+        if(count($errors) == 0)
+        {
             $password = hash("whirlpool", $password_1);
             $sql = "INSERT INTO users (username, name, surname, email, password) VALUES ('$username', '$name', '$surname', '$email', '$password')";
             $db->exec($sql);
@@ -44,5 +68,50 @@
             header('location: index.php');
         }
     }
-    
+    // catch(PDOException $e)
+    // {
+    //     echo $sql . "<br>" . $e->getMessage();
+    // }
+    if (isset($_GET['logout']))
+    {
+        session_destroy();
+        unset($_SESSION['username']);
+        header('location:index.php');
+    }
+
+
+    if (isset($_POST['login']))
+    {
+      $username = ($_POST['username']);
+      $password = ($_POST['password']);
+      if (empty($username))
+      {
+          array_push($errors, "Username is required");
+      }
+      if (empty($password))
+      {
+          array_push($errors, "Password is required");
+      }
+      if(count($errors) == 0)
+      {
+          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
+          $password = hash('whirlpool', $password);
+
+          $statment = $conn->prepare("SELECT * FROM camagru_db.users WHERE `username` = '$username' AND `password` = '$password'");
+          $statment->execute(["usr"=>$username, "psw"=>$password]);
+          $results = $statment->fetchAll();
+          array_push($errors, $result);
+          if (sizeof($results) >= 1)
+          {
+               $_SESSION['username'] = $username;
+               $_SESSION['success'] = "Login Successful";
+               header('location: index.php');
+          }
+          else
+          {
+               array_push($errors, "The username/password provided is invalid");
+               header('location: login.php');
+          }
+        }
+    }
 ?>

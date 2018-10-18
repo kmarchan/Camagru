@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php include('server.php');?>
 <html>
     <head>
         <title>Login</title>
@@ -10,10 +11,11 @@
         <div class="header" id="head">
             <h2>Login</h2>
         </div>
-        <form method="post" action="index.php">
+        <form method="post" action="login.php" id="reg">
+          <?php include('errors.php');?>
             <div class="input-group">
                 <label>Username</label>
-                <input type="text" name="Username">
+                <input type="text" name="username">
             </div>
             <div class="input-group">
                 <label>Password</label>

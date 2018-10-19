@@ -19,10 +19,7 @@
                 </div>
                 <?php endif?>
         <div class="content">
-                <!-- <?php if (isset($_SESSION["username"])): ?>
-                    <p align="right" ><a href="index.php?logout='1'" style="color: red;">Log out</a></p>
-                    <p>Welcome <strong><?php echo $_SESSION['username'] ?></strong></p>
-                <?php endif?> -->
+
         </div>
     </body>
 </html>

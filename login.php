@@ -13,6 +13,16 @@
         </div>
         <form method="post" action="login.php" id="reg">
           <?php include('errors.php');?>
+          <?php if (isset($_SESSION['failed'])): ?>
+                <div class="error success">
+                   <h3>
+                        <?php
+                            echo $_SESSION['failed'];
+                            unset($_SESSION['failed']);
+                        ?>
+                   </h3>
+                </div>
+                <?php endif?>
             <div class="input-group">
                 <label>Username</label>
                 <input type="text" name="username">

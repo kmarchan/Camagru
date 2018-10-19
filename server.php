@@ -13,7 +13,9 @@
     PDO::ATTR_EMULATE_PREPARES   => false,
     ];
 
+    try {
     $db = new PDO("mysql:shost=$servername;dbname=$dbname", $ad_username, $ad_password);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if (!$db)
     {
     	die("Connection failed: " . mysqli_connect_error());
@@ -51,7 +53,7 @@
         {
             array_push($errors, "The two passwords do not match");
         }
-        $stmt = $conn->prepare("SELECT * FROM camagru_db.users WHERE username = '$username' OR email = '$password'");
+        $stmt = $db->prepare("SELECT * FROM camagru_db.users WHERE username = '$username' OR email = '$password'");
         $stmt->execute(["usr"=>$username, "eml"=>$email]);
         $results = $stmt->fetchAll();
         if (sizeof($results) >= 1)
@@ -62,16 +64,17 @@
         {
             $password = hash("whirlpool", $password_1);
             $sql = "INSERT INTO users (username, name, surname, email, password) VALUES ('$username', '$name', '$surname', '$email', '$password')";
-            $db->exec($sql);
+            $db->execute($sql);
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "Login Successful!";
             header('location: index.php');
         }
     }
-    // catch(PDOException $e)
-    // {
-    //     echo $sql . "<br>" . $e->getMessage();
-    // }
+}
+    catch(PDOException $e)
+    {
+        echo $sql . "<br>" . $e->getMessage();
+    }
     if (isset($_GET['logout']))
     {
         session_destroy();
@@ -94,10 +97,9 @@
       }
       if(count($errors) == 0)
       {
-          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
+          $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
           $password = hash('whirlpool', $password);
-
-          $statment = $conn->prepare("SELECT * FROM camagru_db.users WHERE `username` = '$username' AND `password` = '$password'");
+          $statment = $db->prepare("SELECT * FROM camagru_db.users WHERE `username` = :usr AND `password` = :psw");
           $statment->execute(["usr"=>$username, "psw"=>$password]);
           $results = $statment->fetchAll();
           array_push($errors, $result);
@@ -109,8 +111,11 @@
           }
           else
           {
-               array_push($errors, "The username/password provided is invalid");
-               header('location: login.php');
+            $_SESSION['username'] = $username;
+            $_SESSION['failed'] = "The username/password provided is invalid";
+            header('location: login.php');
+            //    array_push($errors, "The username/password provided is invalid");
+            //    header('location: login.php');
           }
         }
     }

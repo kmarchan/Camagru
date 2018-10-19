@@ -24,6 +24,16 @@ form, content {
     border: 2px solid #EFCE5B;
     box-shadow: 10px 5px 20px #EFCE5B inset;
 }
+.content {
+    margin: 50px auto 0px;
+    color: #1F2C34;
+    background: #C7C3C2;
+    text-align: center;
+    border-radius: 30px;
+    padding: 20px;
+    border: 2px solid #EFCE5B;
+    box-shadow: 10px 5px 20px #EFCE5B inset;
+}
 .error {
     color: red;
     background: #ff000048;

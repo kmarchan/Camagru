@@ -8,8 +8,6 @@
 
     <body>
         <?php include_once("header.php")?>
-        <?php print_r ($_SESSION); ?>
-        <div class="content">
             <?php if (isset($_SESSION['success'])): ?>
                 <div class="error success">
                    <h3>
@@ -20,10 +18,11 @@
                    </h3>
                 </div>
                 <?php endif?>
-                <?php if (isset($_SESSION["username"])): ?>
+        <div class="content">
+                <!-- <?php if (isset($_SESSION["username"])): ?>
+                    <p align="right" ><a href="index.php?logout='1'" style="color: red;">Log out</a></p>
                     <p>Welcome <strong><?php echo $_SESSION['username'] ?></strong></p>
-                    <p><a href="index.php?logout='1'" style="color: red;">Log out</a></p>
-                <?php endif?>
+                <?php endif?> -->
         </div>
     </body>
 </html>

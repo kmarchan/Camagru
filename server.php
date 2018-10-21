@@ -7,19 +7,19 @@
     $surname = "";
     $errors = array();
 
-    $opt = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-    ];
+    // $opt = [
+    // PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    // PDO::ATTR_EMULATE_PREPARES   => false,
+    // ];
 
     try {
-    $db = new PDO("mysql:shost=$servername;dbname=$dbname", $ad_username, $ad_password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    if (!$db)
-    {
-    	die("Connection failed: " . mysqli_connect_error());
-    }
+    // $db = new PDO("mysql:shost=$servername;dbname=$dbname", $ad_username, $ad_password);
+    // $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // if (!$db)
+    // {
+    // 	die("Connection failed: " . mysqli_connect_error());
+    // }
     if (isset($_POST['register']))
     {
         $username = ($_POST['username']);
@@ -53,7 +53,7 @@
         {
             array_push($errors, "The two passwords do not match");
         }
-        $stmt = $db->prepare("SELECT * FROM camagru_db.users WHERE username = '$username' OR email = '$password'");
+        $stmt = $db->prepare("SELECT * FROM camagru_db.users WHERE username = :usr OR email = :eml");
         $stmt->execute(["usr"=>$username, "eml"=>$email]);
         $results = $stmt->fetchAll();
         if (sizeof($results) >= 1)
@@ -64,7 +64,7 @@
         {
             $password = hash("whirlpool", $password_1);
             $sql = "INSERT INTO users (username, name, surname, email, password) VALUES ('$username', '$name', '$surname', '$email', '$password')";
-            $db->execute($sql);
+            $db->exec($sql);
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "Login Successful!";
             header('location: index.php');
@@ -111,7 +111,7 @@
           }
           else
           {
-            $_SESSION['username'] = $username;
+
             $_SESSION['failed'] = "The username/password provided is invalid";
             header('location: login.php');
             //    array_push($errors, "The username/password provided is invalid");

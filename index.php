@@ -5,7 +5,6 @@
         <title>Home</title>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-
     <body>
         <?php include_once("header.php")?>
             <?php if (isset($_SESSION['success'])): ?>

@@ -7,70 +7,87 @@
     $surname = "";
     $errors = array();
 
-    // $opt = [
-    // PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    // PDO::ATTR_EMULATE_PREPARES   => false,
-    // ];
+    $username = $_GET['username'];
+    $confirmcode = $_GET['code'];
+       
+    $stmt = $db->prepare("SELECT * FROM camagru_db.users WHERE username = :usr OR email = :eml");
+    $stmt->execute(["usr"=>$username, "eml"=>$email]);
+    $results = $stmt->fetchAll();
 
-    try {
-    // $db = new PDO("mysql:shost=$servername;dbname=$dbname", $ad_username, $ad_password);
-    // $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // if (!$db)
-    // {
-    // 	die("Connection failed: " . mysqli_connect_error());
-    // }
-    if (isset($_POST['register']))
+    try
     {
-        $username = ($_POST['username']);
-        $name = ($_POST['name']);
-        $surname = ($_POST['surname']);
-        $email = ($_POST['email']);
-        $password_1 = ($_POST['password_1']);
-        $password_2 = ($_POST['password_2']);
-        // console.log($username);
-        if(empty($username))
+        if (isset($_POST['register']))
         {
-            array_push($errors, "Username is required");
-        }
-        if(empty($name))
-        {
-            array_push($errors, "Name is required");
-        }
-        if(empty($surname))
-        {
-            array_push($errors, "Surname is required");
-        }
-        if(empty($email))
-        {
-            array_push($errors, "Email is required");
-        }
-        if(empty($password_1))
-        {
-            array_push($errors, "Password is required");
-        }
-        if($password_1 != $password_2)
-        {
-            array_push($errors, "The two passwords do not match");
-        }
-        $stmt = $db->prepare("SELECT * FROM camagru_db.users WHERE username = :usr OR email = :eml");
-        $stmt->execute(["usr"=>$username, "eml"=>$email]);
-        $results = $stmt->fetchAll();
-        if (sizeof($results) >= 1)
-        {
-          array_push($errors, "Username/Email already in use");
-        }
-        if(count($errors) == 0)
-        {
-            $password = hash("whirlpool", $password_1);
-            $sql = "INSERT INTO users (username, name, surname, email, password) VALUES ('$username', '$name', '$surname', '$email', '$password')";
-            $db->exec($sql);
-            $_SESSION['username'] = $username;
-            $_SESSION['success'] = "Login Successful!";
-            header('location: index.php');
+            $username = ($_POST['username']);
+            $name = ($_POST['name']);
+            $surname = ($_POST['surname']);
+            $email = ($_POST['email']);
+            $password_1 = ($_POST['password_1']);
+            $password_2 = ($_POST['password_2']);
+            // console.log($username);
+            if(empty($username))
+            {
+                array_push($errors, "Username is required");
+            }
+            if(empty($name))
+            {
+                array_push($errors, "Name is required");
+            }
+            if(empty($surname))
+            {
+                array_push($errors, "Surname is required");
+            }
+            if(empty($email))
+            {
+                array_push($errors, "Email is required");
+            }
+            if(empty($password_1))
+            {
+                array_push($errors, "Password is required");
+            }
+            if($password_1 != $password_2)
+            {
+                array_push($errors, "The two passwords do not match");
+            }
+            else
+            {
+                $error = "Problem Authenticating";
+                $_SESSION['error'] = $error;
+                header('Location: ../index.php');
+            }
+            if (sizeof($results) >= 1)
+            {
+                array_push($errors, "Username/Email already in use");
+            }
+            
+            if(count($errors) == 0)
+            {
+                $password = hash("whirlpool", $password_1);
+                $confirmcode = rand();
+                $sql = "INSERT INTO users (username, name, surname, email, password, confirmcode) VALUES ('$username', '$name', '$surname', '$email', '$password', '$confirmcode')";
+                $db->exec($sql);
+                $headers = "From: noreply@localhost.co.za\r\n";
+                $headers .= "Reply-To: noreply@localhost.co.za\r\n";
+                $headers .= "Return-Path: noreply@localhost.co.za\r\n";
+                $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+                $message = "<h1>Activate Your Account.</h1>
+                Click the link below to Verify your account <br />
+                <br />
+                    For <strong>Localhost Activation </strong> use the following : <br />
+                        http://localhost:8080/Camagru/email_confirm.php?username=$username&code=$confirmcode <br />
+                <h2>Enjoy</h2>
+                ";
+                mail($email, "Activation email", $message , $headers);
+                $login_message = "Check Your Email for the Activation link";
+                $_SESSION['message'] = $login_message;
+                header('Location: index.php');
+                // $_SESSION['username'] = $username;
+                // $_SESSION['success'] = "Login Successful!";
+                // header('location: index.php');
+
+            }
         }
     }
-}
     catch(PDOException $e)
     {
         echo $sql . "<br>" . $e->getMessage();
@@ -111,11 +128,7 @@
           }
           else
           {
-
-            $_SESSION['failed'] = "The username/password provided is invalid";
-            header('location: login.php');
-            //    array_push($errors, "The username/password provided is invalid");
-            //    header('location: login.php');
+            array_push($errors, "The username/password provided is invalid");
           }
         }
     }

@@ -25,7 +25,6 @@
 	else
 	{
 		$error = "Problem Authenticating";
-		// $_SESSION['error'] = count($result);
 		$_SESSION['error'] = $error;
 		header('Location: index.php');
 	}

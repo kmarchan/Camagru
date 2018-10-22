@@ -13,8 +13,6 @@
         </div>
         <form method="post" action="login.php" id="reg">
           <?php include('errors.php');?>
-          <!-- <?php if (isset($_SESSION['failed'])): ?>
-          <?php endif?> -->
             <div class="input-group">
                 <label>Username</label>
                 <input type="text" name="username">

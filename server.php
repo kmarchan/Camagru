@@ -81,10 +81,6 @@
                 $login_message = "Check Your Email for the Activation link";
                 $_SESSION['message'] = $login_message;
                 header('Location: index.php');
-                // $_SESSION['username'] = $username;
-                // $_SESSION['success'] = "Login Successful!";
-                // header('location: index.php');
-
             }
         }
     }
@@ -120,7 +116,10 @@
           $statment->execute(["usr"=>$username, "psw"=>$password]);
           $results = $statment->fetchAll();
           array_push($errors, $result);
-          if (sizeof($results) >= 1)
+          $is_confirm = $db->prepare("SELECT * FROM $dbname.users WHERE username= :usr AND password = :psw AND confirmed = :bool");
+          $is_confirm->execute(["usr"=>$username, "psw"=>$password , "bool"=>1]);
+          $is_confirmed_res =$is_confirm->fetchAll();
+          if (sizeof($results) == 1 && count($is_confirmed_res) == 1)
           {
                $_SESSION['username'] = $username;
                $_SESSION['success'] = "Login Successful";
@@ -128,8 +127,9 @@
           }
           else
           {
-            array_push($errors, "The username/password provided is invalid");
+            array_push($errors, "The username/password provided is invalid or your account needs to be activated");
           }
+
         }
     }
 ?>

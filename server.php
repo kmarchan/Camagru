@@ -7,8 +7,8 @@
     $surname = "";
     $errors = array();
 
-    $username = $_GET['username'];
-    $confirmcode = $_GET['code'];
+    // $username = $_GET['username'];
+    // $confirmcode = $_GET['code'];
        
     $stmt = $db->prepare("SELECT * FROM camagru_db.users WHERE username = :usr OR email = :eml");
     $stmt->execute(["usr"=>$username, "eml"=>$email]);
@@ -49,12 +49,12 @@
             {
                 array_push($errors, "The two passwords do not match");
             }
-            else
-            {
-                $error = "Problem Authenticating";
-                $_SESSION['error'] = $error;
-                header('Location: ../index.php');
-            }
+            // else
+            // {
+            //     $error = "Problem Authenticating";
+            //     $_SESSION['error'] = $error;
+            //     header('Location: index.php');
+            // }
             if (sizeof($results) >= 1)
             {
                 array_push($errors, "Username/Email already in use");

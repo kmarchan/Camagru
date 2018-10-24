@@ -132,36 +132,45 @@
 
         }
     }
-    // if (isset($_POST['register']))
-    // {
-    //     $email = ($_POST['email']);
-    //     // console.log($username);
-    //     if(empty($email))
-    //     {
-    //         array_push($errors, "Email is required");
-    //     }
-    //     if(count($errors) == 0)
-    //     {
-    //         $password = hash("whirlpool", $password_1);
-    //         $confirmcode = rand();
-    //         $sql = "INSERT INTO users (username, name, surname, email, password, confirmcode) VALUES ('$username', '$name', '$surname', '$email', '$password', '$confirmcode')";
-    //         $db->exec($sql);
-    //         $headers = "From: noreply@localhost.co.za\r\n";
-    //         $headers .= "Reply-To: noreply@localhost.co.za\r\n";
-    //         $headers .= "Return-Path: noreply@localhost.co.za\r\n";
-    //         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-    //         $message = "<h1>Activate Your Account.</h1>
-    //         Click the link below to Verify your account <br />
-    //         <br />
-    //             For <strong>Localhost Activation </strong> use the following : <br />
-    //                 http://localhost:8080/Camagru/email_confirm.php?username=$username&code=$confirmcode <br />
-    //         <h2>Enjoy</h2>
-    //         ";
-    //         mail($email, "Activation email", $message , $headers);
-    //         $login_message = "Check Your Email for the Activation link";
-    //         $_SESSION['message'] = $login_message;
-    //         header('Location: index.php');
-    //     }
-    // }
 
+    if (isset($_POST['recover']))
+    {
+        $email = ($_POST['email']);
+        if(empty($email))
+        {
+            array_push($errors, "Email is required");
+        }
+        $stmt = $db->prepare("SELECT * FROM camagru_db.users WHERE email = :eml");
+        $stmt->execute(["eml"=>$email]);
+        $result = $stmt->fetchAll();
+        if (sizeof($result) != 1)
+        {
+            array_push($errors, "Please use the email address you registered with");
+        }
+        array_push($errors, count($result));
+        if (sizeof($result) == 1)
+        {
+            $confirmcode = md5($email);
+            $password = hash("whirlpool", $confirmcode);
+            $sql = "UPDATE $dbname.users SET `password`='$password' WHERE `email`= '$email'";
+            $db->exec($sql);
+            $headers = "From: noreply@localhost.co.za\r\n";
+            $headers .= "Reply-To: noreply@localhost.co.za\r\n";
+            $headers .= "Return-Path: noreply@localhost.co.za\r\n";
+            $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+            $message = "<h1>Activate Your Account.</h1>
+            Click the link below to reset your password <br />
+            <br />
+                For <strong>Password Reset </strong> : <br />
+                    Your password has been set to $confirmcode click the
+                    link below to login and then proceed to account Settings to change your password.
+                    http://localhost:8080/Camagru/login.php <br />
+            <h2>Enjoy</h2>
+            ";
+            mail($email, "Password Reset", $message , $headers);
+            $login_message = "Check Your Email for your new password";
+            $_SESSION['message'] = $login_message;
+            header('Location: index.php');
+        }
+    }
 ?>

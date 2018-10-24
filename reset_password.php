@@ -12,6 +12,7 @@
             <h2>Reset Password</h2>
         </div>
         <form method="post" action="  " id="reg">
+        <?php include('errors.php');?>
             <div class="input-group">
                 <label>Recovery Email</label>
                 <input type="email" name="email" pattern="[^()/><\][\\\x22,;|]+">

@@ -9,7 +9,7 @@
 
     // $username = $_GET['username'];
     // $confirmcode = $_GET['code'];
-       
+
     $stmt = $db->prepare("SELECT * FROM camagru_db.users WHERE username = :usr OR email = :eml");
     $stmt->execute(["usr"=>$username, "eml"=>$email]);
     $results = $stmt->fetchAll();
@@ -59,7 +59,7 @@
             {
                 array_push($errors, "Username/Email already in use");
             }
-            
+
             if(count($errors) == 0)
             {
                 $password = hash("whirlpool", $password_1);
@@ -115,7 +115,7 @@
           $statment = $db->prepare("SELECT * FROM camagru_db.users WHERE `username` = :usr AND `password` = :psw");
           $statment->execute(["usr"=>$username, "psw"=>$password]);
           $results = $statment->fetchAll();
-          array_push($errors, $result);
+          // array_push($errors, $result);
           $is_confirm = $db->prepare("SELECT * FROM $dbname.users WHERE username= :usr AND password = :psw AND confirmed = :bool");
           $is_confirm->execute(["usr"=>$username, "psw"=>$password , "bool"=>1]);
           $is_confirmed_res =$is_confirm->fetchAll();
@@ -129,7 +129,6 @@
           {
             array_push($errors, "The username/password provided is invalid or your account needs to be activated");
           }
-
         }
     }
 

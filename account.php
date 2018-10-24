@@ -23,16 +23,14 @@ if (isset($_POST['change']))
 	{
 		$new_usr = $_POST['login'];
 	}
+	if (isset($_POST['email']))
+	{
+		$new_email = $_POST['password'];
+	}
 	if (isset($_POST['login']))
 	{
 		$pass = $_POST['password'];
 		$new_pass = hash('whirlpool', $pass);
-
-	}
-	{
-		$sql = "UPDATE users set `password`='$new_pass' where `username` ='$usr'";
-		$db->exec($sql);
-		array_push($_SESSION[$message], "Password Changed");
 	}
 	if ($new_usr)
 	{
@@ -40,6 +38,19 @@ if (isset($_POST['change']))
 		$db->exec($sql);
 		array_push($_SESSION[$message], "Username Changed");
 	}
+	if ($new_email)
+	{
+		$sql = "UPDATE users set `email`='$new_email' where `username` ='$usr'";
+		$db->exec($sql);
+		array_push($_SESSION[$message], "Email Changed");
+	}
+	if ($new_pass)
+	{
+		$sql = "UPDATE users set `password`='$new_pass' where `username` ='$usr'";
+		$db->exec($sql);
+		array_push($_SESSION[$message], "Password Changed");
+	}
+
 	array_push($_SESSION[$message], "Please Log out and back in again to update account settings");
 	header('location:index.php');
 
@@ -60,6 +71,8 @@ if (isset($_POST['change']))
 				</div>
 				<form method="POST" action="">
 				<input name="login" type="login" placeholder="New username" pattern="[^()/><\][\\\x22,;|]+">
+				<br>
+				<input name="email" type="email" placeholder="New email" pattern="[^()/><\][\\\x22,;|]+">
 				<br>
 				<input name="password" type="password" placeholder="New password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}[^()/><\][\\\x22,;|]+" title="Password must contain at least one number and one uppercase and lowercase letter, and at least 4 or more characters and no brackets or quotation marks">
 				<br>

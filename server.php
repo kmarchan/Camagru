@@ -112,11 +112,11 @@
       {
           $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
           $password = hash('whirlpool', $password);
-          $statment = $db->prepare("SELECT * FROM camagru_db.users WHERE `username` = :usr AND `password` = :psw");
+          $statment = $db->prepare("SELECT * FROM camagru_db.users WHERE `username` =:usr AND `password` =:psw");
           $statment->execute(["usr"=>$username, "psw"=>$password]);
           $results = $statment->fetchAll();
           // array_push($errors, $result);
-          $is_confirm = $db->prepare("SELECT * FROM $dbname.users WHERE username= :usr AND password = :psw AND confirmed = :bool");
+          $is_confirm = $db->prepare("SELECT * FROM $dbname.users WHERE username=:usr AND password =:psw AND confirmed =:bool");
           $is_confirm->execute(["usr"=>$username, "psw"=>$password , "bool"=>1]);
           $is_confirmed_res =$is_confirm->fetchAll();
           if (sizeof($results) == 1 && count($is_confirmed_res) == 1)
@@ -146,7 +146,6 @@
         {
             array_push($errors, "Please use the email address you registered with");
         }
-        array_push($errors, count($result));
         if (sizeof($result) == 1)
         {
             $confirmcode = md5($email);
@@ -157,7 +156,7 @@
             $headers .= "Reply-To: noreply@localhost.co.za\r\n";
             $headers .= "Return-Path: noreply@localhost.co.za\r\n";
             $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-            $message = "<h1>Activate Your Account.</h1>
+            $message = "<h1>Password Reset.</h1>
             Click the link below to reset your password <br />
             <br />
                 For <strong>Password Reset </strong> : <br />

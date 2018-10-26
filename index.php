@@ -64,27 +64,40 @@
                         <?php endif?>
                         <div id="container">
                             <video autoplay="true" id="videoElement">
+                            
                         
                             </video>
                         </div>
                         <br>
-                        <button class="camera" align="centre">
+                        <button onclick="upload" class="camera" align="centre" title="Save">
+                            <img src="upload.png" alt="upload" height="30px">
+                        </button>
+                        <button onclick="snapshot" class="camera" align="centre" title="Snapshot">
                             <img src="camera.png" alt="shoot" height="30px">
+                        </button>
+                        <button onclick="save" class="camera" align="centre" title="Save">
+                            <img src="save.png" alt="save" height="30px">
                         </button>
                         <script>
                             var video = document.querySelector("#videoElement");
-
                             if (navigator.mediaDevices.getUserMedia)
                             {       
                                 navigator.mediaDevices.getUserMedia({video: true})
-                                .then(function(stream) {video.srcObject = stream;})
-                                .catch(function(err0r) {console.log("Something went wrong!");});
+                                .then(function(stream) 
+                                {
+                                        video.srcObject = stream;
+                                })
+                                .catch(function(err0r) 
+                                {
+                                    console.log("Something went wrong!");
+                                });
                             }
+                            
                         </script>
                     </div>
                 </td  >
                 <td width="25%" valign="top" >
-                    <div class="content" height="100%">
+                    <div class="content" height="100%" name="side">
 
                 </div>
                 </td>

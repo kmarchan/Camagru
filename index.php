@@ -64,8 +64,8 @@
                         <?php endif?>
                         <div id="container">
                             <video autoplay="true" id="videoElement">
-                            
-                        
+
+
                             </video>
                         </div>
                         <br>
@@ -85,7 +85,7 @@
                     <div id="side" class="content" height="100%" name="side">
                         <h2>Snapshots</h2>
                         <div class="canvas" id="canvas">
-                            <img src="camera.png" class="img" alt="img" id="img" height="100px">
+                            <!-- <img src="camera.png" class="img" alt="img" id="img" height="100px"> -->
                         </div>
                     </div>
                 </td>
@@ -105,14 +105,20 @@
                     }
                     function snapshot()
                     {
+
+                    }
+
+                    function sticker()
+                    {
                         var x = document.createElement("img");
                         x.setAttribute("src", "camera.png");
                         x.setAttribute("width", "100");
                         x.setAttribute("height", "100");
                         x.setAttribute("alt", "The Pulpit Rock");
-                        // document.body.appendChild(x);
-                        document.getElementById('canvas').appendChild(x);
-                        // canvas.insertBefore(x, canvas.firstChild);
+                        document.body.appendChild(x);
+                        // document.getElementById('canvas').appendChild(x);
+
+                        canvas.insertBefore(x, canvas.firstChild);
                         x.addEventListener("click", del);
                     }
                     function del()

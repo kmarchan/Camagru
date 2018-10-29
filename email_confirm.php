@@ -1,6 +1,6 @@
 <?php
 	session_start();
-    require('connect.php');
+    require('config/database.php');
 	$username = $_GET['username'];
 	$confirmcode = $_GET['code'];
 	$query = $db->prepare("SELECT confirmed FROM $dbname.users WHERE username = :usr AND confirmcode = :con ");

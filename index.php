@@ -69,38 +69,59 @@
                             </video>
                         </div>
                         <br>
-                        <button onclick="upload" class="camera" align="centre" title="Save">
+                        <button onclick="upload()" class="camera" align="centre" title="Save">
                             <img src="upload.png" alt="upload" height="30px">
                         </button>
-                        <button onclick="snapshot" class="camera" align="centre" title="Snapshot">
+                        <button onclick="snapshot()" class="camera" align="centre" title="Snapshot">
                             <img src="camera.png" alt="shoot" height="30px">
                         </button>
-                        <button onclick="save" class="camera" align="centre" title="Save">
+                        <button onclick="save()" class="camera" align="centre" title="Save">
                             <img src="save.png" alt="save" height="30px">
                         </button>
-                        <script>
-                            var video = document.querySelector("#videoElement");
-                            if (navigator.mediaDevices.getUserMedia)
-                            {       
-                                navigator.mediaDevices.getUserMedia({video: true})
-                                .then(function(stream) 
-                                {
-                                        video.srcObject = stream;
-                                })
-                                .catch(function(err0r) 
-                                {
-                                    console.log("Something went wrong!");
-                                });
-                            }
-                            
-                        </script>
-                    </div>
-                </td  >
-                <td width="25%" valign="top" >
-                    <div class="content" height="100%" name="side">
 
-                </div>
+                    </div>
                 </td>
+                <td width="25%" valign="top" >
+                    <div id="side" class="content" height="100%" name="side">
+                        <h2>Snapshots</h2>
+                        <div class="canvas" id="canvas">
+                            <img src="camera.png" class="img" alt="img" id="img" height="100px">
+                        </div>
+                    </div>
+                </td>
+                <script>
+                    var video = document.querySelector("#videoElement");
+                    var img = document.querySelector('img') || document.createElement('img');
+
+                    if (navigator.mediaDevices.getUserMedia)
+                    {
+                        navigator.mediaDevices.getUserMedia({video: true})
+                            .then(function(stream)
+                            {
+                                video.srcObject = stream;
+                                return video.play();
+                            })
+
+                    }
+                    function snapshot()
+                    {
+                        var x = document.createElement("img");
+                        x.setAttribute("src", "camera.png");
+                        x.setAttribute("width", "100");
+                        x.setAttribute("height", "100");
+                        x.setAttribute("alt", "The Pulpit Rock");
+                        // document.body.appendChild(x);
+                        document.getElementById('canvas').appendChild(x);
+                        // canvas.insertBefore(x, canvas.firstChild);
+                        x.addEventListener("click", del);
+                    }
+                    function del()
+                    {
+                        if (confirm("Delete Photo?")) {
+                            this.parentElement.removeChild(this);
+                        }
+                    }
+                </script>
             </tr>
         </table>
     </body>

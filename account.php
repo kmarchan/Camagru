@@ -1,5 +1,5 @@
 <?php
-require "connect.php";
+require "config/database.php";
 include "server.php";
 if(isset($_GET['delete']))
 {

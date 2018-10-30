@@ -72,10 +72,9 @@
                         <button type="submit" name="snapshot" onclick="snapshot()" class="camera" align="centre" title="Snapshot">
                             <img src="camera.png" alt="shoot" height="30px">
                         </button>
-                        <button type="submit" name="" onclick="sticker()" class="camera" align="centre" title="Save">
+                        <button type="submit" name="save" onclick="sticker()" class="camera" align="centre" title="Save">
                             <img src="save.png" alt="save" height="30px">
                         </button>
-
                     </div>
                 </td>
                 <td width="25%" valign="top" >

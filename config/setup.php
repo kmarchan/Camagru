@@ -27,6 +27,11 @@ if (isset($_POST['value']))
     password VARCHAR (1024),
     confirmed BIT DEFAULT 0,
     confirmcode VARCHAR (1024))";
+  $images = "CREATE TABLE $dbname.images (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    pic VARCHAR (255) UNIQUE,
+    title VARCHAR (255),
+    confirmcode VARCHAR (1024))";
 
   $conn->exec($deleteDB);
 
@@ -35,6 +40,8 @@ if (isset($_POST['value']))
     echo "Database created successfully\n ".rand(0,100)."<BR /> ";
     $conn->exec($users);
     echo "User Table created successfully\n <BR />";
+      $conn->exec($images);
+      echo "Images Table created successfully\n <BR />";
   }
   else
   {

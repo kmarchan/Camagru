@@ -171,4 +171,9 @@
             header('Location: index.php');
         }
     }
+
+    if (isset($_GET['snapshot']))
+    {
+
+    }
 ?>

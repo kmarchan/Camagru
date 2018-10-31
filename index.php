@@ -51,9 +51,11 @@
                             </div>
                         <?php endif?>
                         <div>
-
+                            <?php include("populate.php")?>
                         </div>
-                </script>
+                    </div>
+                </td>
+
             </tr>
         </table>
         <div class="header">

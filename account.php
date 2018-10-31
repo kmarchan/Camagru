@@ -47,6 +47,8 @@ if (isset($_POST['change']))
 	{
 		$sql = "UPDATE users set `username`='$new_usr' where `username` ='$usr'";
 		$db->exec($sql);
+		$sql = "UPDATE images set `username`='$new_usr' where `username` ='$usr'";
+        $db->exec($sql);
 	}
 	session_destroy();
     unset($_SESSION['username']);

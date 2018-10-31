@@ -80,6 +80,7 @@
                 <td width="25%" valign="top" >
                     <div id="side" class="content" height="100%" name="side">
                         <h2>Snapshots</h2>
+                        <div id="status"></div>
                         <div class="" id="snp">
                             <!-- <img src="camera.png" class="img" alt="img" id="img" height="100px"> -->
                         </div>
@@ -106,6 +107,7 @@
                         var width = video.offsetWidth
                             , height = video.offsetHeight;
                         var can;
+                        //var id = <?php //rand(); ?>//;
                         can = document.createElement("canvas");
                         can.width = width;
                         can.height = height;
@@ -115,23 +117,23 @@
 
                         img.setAttribute("height", "100");
                         snp.insertBefore(img, snp.firstChild);
-                        img.addEventListener("dblclick", del);
-                        img.addEventListener("click", save)
+                        // img.addEventListener("dblclick", del);
+                        img.addEventListener("click", save);
                         console.log (img);
                     }
 
                     function sticker()
                     {
                         var x = document.createElement("img");
+
                         x.setAttribute("src", "camera.png");
                         x.setAttribute("width", "100");
                         x.setAttribute("height", "100");
                         x.setAttribute("alt", "The Pulpit Rock");
                         document.body.appendChild(x);
                         snp.insertBefore(x, snp.firstChild);
-                        // container.insertBefore(x, container.firstChild);
 
-                        x.addEventListener("dblclick", del);
+                        // x.addEventListener("dblclick", del);
                         x.addEventListener("click", save);
                     }
                     function del()
@@ -142,9 +144,28 @@
                     }
                     function save()
                     {
-                      if (confirm("Save Photo?")) {
-
+                      if (confirm("Save Photo?"))
+                      {
+                          var xhr = new XMLHttpRequest();
+                          var url = "server.php";
+                          var usr = '<?php echo $_SESSION["username"]; ?>'
+                          var pic = (encodeURIComponent(JSON.stringify(this.src)));
+                          var vars = "username="+usr+"&pic="+pic+"&save=true";
+                          console.log (vars);
+                          xhr.open("POST", url, true);
+                          xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                          xhr.onreadystatechange = function()
+                          {
+                              if (xhr.readyState == 4 && xhr.status == 200)
+                              {
+                                  var return_data = xhr.responseText;
+                                  document.getElementById("status").innerHTML = return_data;
+                              }
+                          }
                       }
+                      // xhttp.open("GET", "xmlhttp_info.txt", true);
+                      xhr.send(vars);
+                      document.getElementById("status").innerHTML = "testing";
                     }
                 </script>
             </tr>

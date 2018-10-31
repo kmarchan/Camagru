@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <style>
             #container {
-                margin: 0px auto;
+                margin: 0 auto;
                 /* width: 70%; */
                 /* height: 60%; */
                 border: 3px;
@@ -17,18 +17,18 @@
                 /* height: 375px; */
                 background-color: #666;
             }
-            .button, .camera {
-                background-color: #EFCE5B;
-                border-radius: 100%;
-                padding: 10px;
-                box-shadow: 10px 5px 10px lightgoldenrodyellow inset;
-            }
+            /*.button, .camera {*/
+                /*background-color: #EFCE5B;*/
+                /*border-radius: 100%;*/
+                /*padding: 10px;*/
+                /*box-shadow: 10px 5px 10px lightgoldenrodyellow inset;*/
+            /*}*/
         </style>
 
     </head>
     <body>
         <?php include_once("header.php")?>
-        <table name="main" width="100%">
+        <table width="100%">
             <tr>
                 <td width="75%" valign="top">
                     <div class="content">
@@ -106,9 +106,6 @@
                         var width = video.offsetWidth
                             , height = video.offsetHeight;
                         var can;
-                        // if (canvas)
-                        //     canvas = canvas;
-                        // else
                         can = document.createElement("canvas");
                         can.width = width;
                         can.height = height;
@@ -116,7 +113,7 @@
                         context.drawImage(video, 0, 0, width, height);
                         img.src = can.toDataURL('image/png');
 
-                        img.setAttribute("height", "100");
+                        img.setAttribute("height", "200");
                         snp.insertBefore(img, snp.firstChild);
                         img.addEventListener("click", del);
                     }

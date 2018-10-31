@@ -23,6 +23,14 @@
                 padding: 10px;
                 box-shadow: 10px 5px 10px lightgoldenrodyellow inset;
             }
+            .overlayImage
+            {
+            	position: absolute;
+            	object-fit: contain;
+
+            	width: 60%;
+            	height: 60%;
+            }
         </style>
 
     </head>
@@ -171,7 +179,25 @@
             </tr>
         </table>
         <div class="header">
-            <img src="camera.png" height="100px">
+            <!-- <img src="camera.png" height="100px"> -->
+            <img height="100" src="./stickers/branches.png" alt="branches" onclick="addSticker('./stickers/branches.png')" value="Add">
+            <img height="100" src="./stickers/bullets.png" alt="bullets" onclick="addSticker('./stickers/bullets.png')" value="Add">
+            <img height="100" src="./stickers/butterfly.png" alt="butterfly" onclick="addSticker('./stickers/butterfly.png')" value="Add">
+            <img height="100" src="./stickers/Gorgosaurus.png" alt="dino" onclick="addSticker('./stickers/Gorgosaurus.png')" value="Add">
+            <img height="100" src="./stickers/water.png" alt="water" onclick="addSticker('./stickers/water.png')" value="Add">
+            <script>
+            function addSticker(loc)
+            {
+                var info = "test";
+                console.log(info);
+                var sticker = document.createElement('img');
+
+                sticker.setAttribute("src", loc);
+                sticker.setAttribute("alt", loc);
+                sticker.setAttribute("class", 'overlayImage');
+                container.insertBefore(sticker, container.firstChild);
+            }
+            </script>
         </div>
     </body>
 </html>

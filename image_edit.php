@@ -31,6 +31,37 @@
             	width: 60%;
             	height: 60%;
             }
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+            .modal-content {
+                margin: auto;
+                width: 80%;
+                color: #1F2C34;
+                background: #C7C3C2;
+                text-align: center;
+                border-radius: 30px;
+                padding: 20px;
+                border: 2px solid #EFCE5B;
+                box-shadow: 10px 5px 20px #EFCE5B inset;
+            }
+            .close {
+                color: #aaaaaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
         </style>
 
     </head>
@@ -74,7 +105,8 @@
                             <video autoplay="true" id="videoElement"></video>
                         </div>
                         <br>
-                        <button type="submit" name="" onclick="upload()" class="camera" align="centre" title="Save">
+
+                        <button id="upload" type="submit" name="" onclick="upload()" class="camera" align="centre" title="Save">
                             <img src="upload.png" alt="upload" height="30px">
                         </button>
                         <button type="submit" name="snapshot" onclick="snapshot()" class="camera" align="centre" title="Snapshot">
@@ -83,6 +115,11 @@
                         <button type="submit" name="save" onclick="sticker()" class="camera" align="centre" title="Save">
                             <img src="save.png" alt="save" height="30px">
                         </button>
+                    </div>
+                    <div id="myModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Some text in the Modal..</p>
                     </div>
                 </td>
                 <td width="25%" valign="top" >
@@ -108,6 +145,26 @@
                             })
 
                     }
+                    var modal = document.getElementById('myModal');
+                    var btn = document.getElementById("upload")
+                    var span = document.getElementsByClassName("close")[0];
+                    btn.onclick = function()
+                    {
+                        modal.style.display = "block";
+                    }
+
+                    span.onclick = function()
+                    {
+                      modal.style.display = "none";
+                    }
+
+                    window.onclick = function(event)
+                    {
+                        if(event.target == modal) {
+                          modal.style.display = "none";
+                        }
+                    }
+
                     function snapshot()
                     {
                         var img = document.createElement('img');

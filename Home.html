@@ -1,9 +1,8 @@
-<?php include('server.php');?>
 <!DOCTYPE html>
-<html>
-    <head>
+<!-- saved from url=(0044)http://localhost:8080/Camagru/image_edit.php -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="./Home_files/style.css">
         <style>
             #container {
                 object-fit: contain;
@@ -37,65 +36,49 @@
                 position: absolute;
                 /*margin-left: 20%;*/
                 /*top: 0;*/
-                left: 0;
-                margin-left: 2%;
+                /*left: 0;*/
                 /*z-index: 10;*/
             }
         </style>
 
     </head>
     <body>
-        <?php include_once("header.php")?>
+        <div class="header">
+	<h1>Camagru</h1>
+	<p align="right"><a href="http://localhost:8080/Camagru/index.php?logout=%271%27" ;="">Log out</a></p><p align="right"><a href="http://localhost:8080/Camagru/account.php">Account Settings</a></p><p align="centre">Welcome <strong>TREDX</strong></p><table>
+		<tbody><tr>
+			<td>
+				<div>
+					<a href="http://localhost:8080/Camagru/index.php">Home</a>
+				</div>
+			</td>
+												
+							
+              
+          								
+		</tr>
+	</tbody></table>
+</div>
         <table name="main" width="100%">
-            <tr>
+            <tbody><tr>
                 <td width="75%" valign="top">
-                    <div class="content" align="left">
-                        <?php if (isset($_SESSION['error'])): ?>
-                        <div id="error" style="color:red">
-                            <h3>
-                                    <?php
-                                        echo $_SESSION['error'];
-                                        unset($_SESSION['error']);
-                                    ?>
-                            </h3>
-                        </div>
-                        <?php endif?>
-                        <?php if (isset($_SESSION['message'])): ?>
-                        <div id="success" style="color:green">
-                            <h3>
-                                    <?php
-                                        echo $_SESSION['message'];
-                                        unset($_SESSION['message']);
-                                    ?>
-                            </h3>
-                        </div>
-                        <?php endif?>
-                        <?php if (isset($_SESSION['success'])): ?>
-                            <div id="success" style="color:green">
-                                <h3>
-                                        <?php
-                                            echo $_SESSION['success'];
-                                            unset($_SESSION['success']);
-                                        ?>
-                                </h3>
-                            </div>
-                        <?php endif?>
-                        <div id="container">
+                    <div class="content">
+                                                                                                <div id="container">
 
                             <video autoplay="true" id="videoElement" height="500" width="666"></video>
-                            <canvas id="myCanvas" class="myCanvas" height="500" width="666"></canvas>
-                        </div>
+                            
+                        <canvas id="myCanvas" class="myCanvas" height="500" width="666"></canvas></div>
                         <br>
 
                         <button id="upload" type="submit" class="camera" align="centre" title="Save">
-                            <a href="upload_edit.php"> <img src="upload.png" alt="upload" height="30px"></a>
+                            <a href="http://localhost:8080/Camagru/upload_edit.php"> <img src="./Home_files/upload.png" alt="upload" height="30px"></a>
                         </button>
                         <button type="submit" name="snapshot" onclick="snapshot()" class="camera" align="centre" title="Snapshot">
-                            <img src="camera.png" alt="shoot" height="30px">
+                            <img src="./Home_files/camera.png" alt="shoot" height="30px">
                         </button>
                     </div>
                 </td>
-                <td width="25%" valign="top" >
+                <td width="25%" valign="top">
                     <div id="side" class="content" height="100%" name="side">
                         <h2>Snapshots</h2>
                         <div id="status"></div>
@@ -151,7 +134,7 @@
                       {
                           var xhr = new XMLHttpRequest();
                           var url = "server.php";
-                          var usr = '<?php echo $_SESSION["username"]; ?>'
+                          var usr = 'TREDX'
                           var pic = (encodeURIComponent(JSON.stringify(this.src)));
                           var vars = "username="+usr+"&pic="+pic+"&save=true";
                           console.log (vars);
@@ -172,13 +155,13 @@
 
                 </script>
             </tr>
-        </table>
+        </tbody></table>
         <div class="header">
-            <img height="100" src="./stickers/branches.png" alt="branches" onclick="addSticker('./stickers/branches.png')" value="Add">
-            <img height="100" src="./stickers/bullets.png" alt="bullets" onclick="addSticker('./stickers/bullets.png')" value="Add">
-            <img height="100" src="./stickers/butterfly.png" alt="butterfly" onclick="addSticker('./stickers/butterfly.png')" value="Add">
-            <img height="100" src="./stickers/Gorgosaurus.png" alt="dino" onclick="addSticker('./stickers/Gorgosaurus.png')" value="Add">
-            <img height="100" src="./stickers/water.png" alt="water" onclick="addSticker('./stickers/water.png')" value="Add">
+            <img height="100" src="./Home_files/branches.png" alt="branches" onclick="addSticker(&#39;./stickers/branches.png&#39;)" value="Add">
+            <img height="100" src="./Home_files/bullets.png" alt="bullets" onclick="addSticker(&#39;./stickers/bullets.png&#39;)" value="Add">
+            <img height="100" src="./Home_files/butterfly.png" alt="butterfly" onclick="addSticker(&#39;./stickers/butterfly.png&#39;)" value="Add">
+            <img height="100" src="./Home_files/Gorgosaurus.png" alt="dino" onclick="addSticker(&#39;./stickers/Gorgosaurus.png&#39;)" value="Add">
+            <img height="100" src="./Home_files/water.png" alt="water" onclick="addSticker(&#39;./stickers/water.png&#39;)" value="Add">
             <script>
             function addSticker(loc)
             {
@@ -198,5 +181,6 @@
             }
             </script>
         </div>
-    </body>
-</html>
+    
+
+</body></html>

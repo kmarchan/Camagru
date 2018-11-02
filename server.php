@@ -179,6 +179,5 @@
         $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
         $sql = "INSERT INTO images (username, pic) VALUES ('$username', '$pic')";
         $db->exec($sql);
-//       echo $_POST["pic"];
     }
 ?>

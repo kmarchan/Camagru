@@ -6,16 +6,14 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <style>
             #container {
-                object-fit: contain;
+                position: relative;
+                margin: 0px auto;
+                /* width: 70%; */
+                /* height: 60%; */
                 border: 3px;
             }
             #videoElement {
-                object-fit: contain;
-                /*position: relative;*/
-                /*background-color: #666;*/
-                margin-left: 10%;
-                /*top: 0;*/
-                /*left: 0;*/
+                background-color: #666;
                 /*margin: auto;*/
             }
             .button, .camera {
@@ -24,20 +22,50 @@
                 padding: 10px;
                 box-shadow: 10px 5px 10px lightgoldenrodyellow inset;
             }
+            .overlayImage
+            {
+            	/*position: absolute;*/
+            	object-fit: contain;
+                z-index: 100;
 
+                width: 100%;
+            	height: 100%;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                padding-top: 100px;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+            }
+            .modal-content {
+                margin: auto;
+                width: 80%;
+                color: #1F2C34;
+                background: #C7C3C2;
+                text-align: center;
+                border-radius: 30px;
+                padding: 20px;
+                border: 2px solid #EFCE5B;
+                box-shadow: 10px 5px 20px #EFCE5B inset;
+            }
             .close {
                 color: #aaaaaa;
                 float: right;
                 font-size: 28px;
                 font-weight: bold;
             }
-            .myCanvas {
-                object-fit: contain;
+            #myCanvas {
                 position: absolute;
-                /*margin-left: 20%;*/
-                /*top: 0;*/
-                /*left: 0;*/
-                /*z-index: 10;*/
+                top: 0;
+                left: 0;
+                z-index: 10;
             }
         </style>
 
@@ -79,17 +107,24 @@
                             </div>
                         <?php endif?>
                         <div id="container">
-                            <canvas id="myCanvas" class="myCanvas" height="500" width="666"></canvas>
+                            <canvas id="myCanvas" height="500" width="666"></canvas>
                             <video autoplay="true" id="videoElement" height="500" width="666"></video>
+
                         </div>
                         <br>
 
-                        <button id="upload" type="submit" class="camera" align="centre" title="Save">
-                            <a href="upload_edit.php"> <img src="upload.png" alt="upload" height="30px"></a>
+                        <button  class="camera" align="centre" ">
+                        <a href="image_edit.php"><img src="camera.svg" alt="upload" height="30px"></a>
                         </button>
                         <button type="submit" name="snapshot" onclick="snapshot()" class="camera" align="centre" title="Snapshot">
                             <img src="camera.png" alt="shoot" height="30px">
                         </button>
+
+                    </div>
+                    <div id="myModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Some text in the Modal..</p>
                     </div>
                 </td>
                 <td width="25%" valign="top" >
@@ -97,6 +132,7 @@
                         <h2>Snapshots</h2>
                         <div id="status"></div>
                         <div class="" id="snp">
+                            <!-- <img src="camera.png" class="img" alt="img" id="img" height="100px"> -->
                         </div>
                     </div>
                 </td>

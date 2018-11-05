@@ -34,6 +34,17 @@ if (isset($_POST['value']))
     pic LONGTEXT NOT NULL,
     sub_datetime TIMESTAMP)";
 
+  $comments = "CREATE TABLE $dbname.comments (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR (255),
+    comment VARCHAR (255)
+  )";
+
+  $likes = "CREATE TABLE $dbname.likes (
+    image_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    likes VARCHAR (255)
+  )";
+
   $conn->exec($deleteDB);
 
   if ($conn->exec($sqldb))
@@ -43,6 +54,10 @@ if (isset($_POST['value']))
     echo "User Table created successfully\n <BR />";
     $conn->exec($images);
     echo "Images Table created successfully\n <BR />";
+    $conn->exec($likes);
+    echo "likes Table created successfully\n <BR />";
+    $conn->exec($comments);
+    echo "comment Table created successfully\n <BR />";
   }
   else
   {

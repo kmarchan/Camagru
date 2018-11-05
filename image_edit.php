@@ -87,9 +87,11 @@
                         </div>
                         <br>
 
-                        <button id="upload" type="submit" class="camera" align="centre" title="Save">
-                            <a href="upload_edit.php"> <img src="upload.png" alt="upload" height="30px"></a>
-                        </button>
+                        <a href="upload_edit.php">
+                          <button id="upload" type="submit" class="camera" align="centre" title="Save">
+                            <img src="upload.png" alt="upload" height="30px">
+                          </button>
+                      </a>
                         <button type="submit" name="snapshot" onclick="snapshot()" class="camera" align="centre" title="Snapshot">
                             <img src="camera.png" alt="shoot" height="30px">
                         </button>

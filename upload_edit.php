@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home</title>
+        <title>upload</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <style>
             #container {
@@ -108,18 +108,17 @@
                         <?php endif?>
                         <div id="container">
                             <canvas id="myCanvas" height="500" width="666"></canvas>
-                            <video autoplay="true" id="videoElement" height="500" width="666"></video>
-
+                            <div id="myImage" height="500" width="666"></video>
                         </div>
                         <br>
-
-                        <button  class="camera" align="centre" ">
-                        <a href="image_edit.php"><img src="camera.svg" alt="upload" height="30px"></a>
-                        </button>
+                        <a href="image_edit.php">
+                          <button  class="camera" align="centre">
+                            <img src="camera.svg" alt="upload" height="30px">
+                          </button>
+                        </a>
                         <button type="submit" name="snapshot" onclick="snapshot()" class="camera" align="centre" title="Snapshot">
                             <img src="camera.png" alt="shoot" height="30px">
                         </button>
-
                     </div>
                     <div id="myModal" class="modal">
                       <div class="modal-content">
@@ -137,18 +136,7 @@
                     </div>
                 </td>
                 <script>
-                    // Webcam stream
-                    var video = document.querySelector("#videoElement");
 
-                    if (navigator.mediaDevices.getUserMedia)
-                    {
-                        navigator.mediaDevices.getUserMedia({video: true})
-                            .then(function(stream)
-                            {
-                                video.srcObject = stream;
-                                return video.play();
-                            })
-                    }
 
                     var width = 0, height = 0;
 

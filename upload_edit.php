@@ -62,10 +62,10 @@
                 font-weight: bold;
             }
             #myCanvas {
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 10;
+                /*position: absolute;*/
+                /*top: 0;*/
+                /*left: 0;*/
+                /*z-index: 10;*/
             }
         </style>
 
@@ -107,17 +107,22 @@
                             </div>
                         <?php endif?>
                         <div id="container">
+                            <?php if (isset($_SESSION['image_tmp'])): ?>
+                                <?php include("decode.php"); ?>
+                            <?php endif?>
                             <canvas id="myCanvas" height="500" width="666"></canvas>
                             <div id="myImage" height="500" width="666"></video>
                         </div>
                         <br>
-                        <a href="image_edit.php">
-                          <button  class="camera" align="centre">
-                            <img src="camera.svg" alt="upload" height="30px">
-                          </button>
-                        </a>
+                            <form method="post" action="upload_code.php" id="regform" enctype="multipart/form-data">
+                                <input type="file" name="file">
+                                <button type="submit" name="uploadsubmit">Upload Image</button>
+                            </form>
+                        <button  class="camera" align="centre">
+                           <a href="image_edit.php"><img src="camera.svg" alt="upload" height="30px"></a>
+                        </button>
                         <button type="submit" name="snapshot" onclick="snapshot()" class="camera" align="centre" title="Snapshot">
-                            <img src="camera.png" alt="shoot" height="30px">
+                           <img src="camera.png" alt="shoot" height="30px">
                         </button>
                     </div>
                     <div id="myModal" class="modal">
@@ -137,6 +142,23 @@
                 </td>
                 <script>
 
+                    var c = document.getElementById("myCanvas");
+                    var ctx = c.getContext("2d");
+                    var img = document.getElementById("userimage");
+                    c.style.width  = '70%';
+                    c.style.height = '100%';
+                    // c.setAttribute("width", '70%');
+
+                    c.setAttribute("object-fit", 'contain');
+                    c.width = img.width;
+                    c.height = img.height;
+
+                    var hRatio = c.width / img.width;
+                    var vRatio = c.height / img.height;
+                    var ratio  = Math.min ( hRatio, vRatio );
+                    ctx.drawImage(img, 0,0, img.width, img.height, 0,0,img.width*ratio, img.height*ratio);
+
+
 
                     var width = 0, height = 0;
 
@@ -149,14 +171,14 @@
                     {
                         var img = document.createElement('img');
                         var context;
-                        var width = video.offsetWidth
-                            , height = video.offsetHeight;
+                        var width = canvas.width
+                            , height = canvas.height;
                         var can;
                         can = document.createElement("canvas");
                         can.width = width;
                         can.height = height;
                         context = can.getContext('2d');
-                        context.drawImage(video, 0, 0, width, height);
+                        // context.drawImage(, 0, 0, width, height);
                         context.drawImage(myCanvas, 0, 0, width, height);
                         img.src = can.toDataURL('image/png');
                         img.setAttribute("height", "100");

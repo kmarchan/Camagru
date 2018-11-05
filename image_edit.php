@@ -106,7 +106,6 @@
                     </div>
                 </td>
                 <script>
-                    // Webcam stream
                     var video = document.querySelector("#videoElement");
 
                     if (navigator.mediaDevices.getUserMedia)

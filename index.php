@@ -89,8 +89,9 @@
                             <?php include("populate.php")?>
                             <div id="myModal" class="modal">
                                 <div  class="modal-content">
-                                    <img id="img01" style="margin: auto">    
                                     <span class="close">&times;</span>
+
+                                    <img style="width: 100%" id="img01" style="margin: auto">
                                     <div class="header" id="head">
                                         <h2>Like and Comment</h2>
                                     </div>

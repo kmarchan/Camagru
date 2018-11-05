@@ -177,7 +177,7 @@
             <img height="100" src="./stickers/branches.png" alt="branches" onclick="addSticker('./stickers/branches.png')" value="Add">
             <img height="100" src="./stickers/bullets.png" alt="bullets" onclick="addSticker('./stickers/bullets.png')" value="Add">
             <img height="100" src="./stickers/butterfly.png" alt="butterfly" onclick="addSticker('./stickers/butterfly.png')" value="Add">
-            <img height="100" src="./stickers/Gorgosaurus.png" alt="dino" onclick="addSticker('./stickers/Gorgosaurus.png')" value="Add">
+            <img height="100" src="./stickers/gorgosaurus.png" alt="dino" onclick="addSticker('./stickers/Gorgosaurus.png')" value="Add">
             <img height="100" src="./stickers/water.png" alt="water" onclick="addSticker('./stickers/water.png')" value="Add">
             <script>
             function addSticker(loc)
@@ -190,7 +190,7 @@
 
                 var hRatio = img.width / canvas.width ;
                 var vRatio = img.height / canvas.height ;
-                var ratio  = Math.min ( hRatio, vRatio );
+                // var ratio  = Math.min ( hRatio, vRatio );
 
                 ctx.drawImage(img, 0,0, canvas.width, canvas.height);
             }

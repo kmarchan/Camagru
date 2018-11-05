@@ -24,6 +24,7 @@
                 border-radius: 100%;
                 padding: 10px;
                 box-shadow: 10px 5px 10px lightgoldenrodyellow inset;
+                z-index: 1;
             }
 
             .close {
@@ -35,11 +36,8 @@
             .myCanvas {
                 object-fit: contain;
                 position: absolute;
-                /*margin-left: 20%;*/
-                /*top: 0;*/
                 left: 0;
                 margin-left: 2%;
-                /*z-index: 10;*/
             }
         </style>
 

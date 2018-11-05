@@ -114,10 +114,14 @@
                             <div id="myImage" height="500" width="666"></video>
                         </div>
                         <br>
+                            <div class="header" id="head">
+                                <h2>Upload Image</h2>
+                            </div>
                             <form method="post" action="upload_code.php" id="regform" enctype="multipart/form-data">
                                 <input type="file" name="file">
                                 <button type="submit" name="uploadsubmit">Upload Image</button>
                             </form>
+                            <br>
                         <button  class="camera" align="centre">
                            <a href="image_edit.php"><img src="camera.svg" alt="upload" height="30px"></a>
                         </button>

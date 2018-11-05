@@ -180,4 +180,13 @@
         $sql = "INSERT INTO images (username, pic) VALUES ('$username', '$pic')";
         $db->exec($sql);
     }
+
+    if (isset($_POST['comment']))
+    {
+        $username = $_SESSION['username'];
+        $comment = $_POST['comment'];
+        $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
+        $sql = "INSERT INTO comments (username, comment) VALUES ('$username', '$comment')";
+
+    }
 ?>

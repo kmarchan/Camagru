@@ -191,8 +191,6 @@
                 var img = new Image();
                 img.src = loc;
 
-                console.log(loc);
-
                 var hRatio = img.width / canvas.width ;
                 var vRatio = img.height / canvas.height ;
                 var ratio  = Math.min ( hRatio, vRatio );

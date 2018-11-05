@@ -6,25 +6,31 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <style>
             .modal {
-                display: none; /* Hidden by default */
-                position: fixed; /* Stay in place */
-                z-index: 1; /* Sit on top */
-                padding-top: 100px; /* Location of the box */
+                display: none; 
+                position: fixed; 
+                z-index: 1;
+                padding-top: 100px;
                 left: 0;
                 top: 0;
-                width: 100%; /* Full width */
-                height: 100%; /* Full height */
-                overflow: auto; /* Enable scroll if needed */
-                background-color: rgb(0,0,0); /* Fallback color */
-                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                width: 100%;
+                height: 100%; 
+                overflow: auto; 
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
             }
 
             .modal-content {
+                color: #1F2C34;
+                background: #C7C3C2;
+                border: 2px solid #EFCE5B;
+                border-radius: 30px;
+                padding: 2%;
+                box-shadow: 10px 5px 20px #EFCE5B inset;
                 background-color: #fefefe;
                 margin: auto;
                 padding: 20px;
                 border: 1px solid #888;
-                width: 80%;
+                width: 65%;
             }
 
             .close {
@@ -82,26 +88,40 @@
                         <div>
                             <?php include("populate.php")?>
                             <div id="myModal" class="modal">
-                                <div class="modal-content">
+                                <div  class="modal-content">
+                                    <img id="img01" style="margin: auto">    
                                     <span class="close">&times;</span>
-                                    <form>
-                                        Comment on this image:<input type="text" pattern="[^()/><\][\\\x22,;|]+" title="No special characters wil be accepted">
+                                    <div class="header" id="head">
+                                        <h2>Like and Comment</h2>
+                                    </div>
+                                    <form method="post">
+                                        <button onclick="likePic(this.src)" name="likePic" class="button">Like</button>
+                                        <br>
+                                        <input type="text" pattern="[^()/><\][\\\x22,;|]+" title="No special characters wil be accepted" placeholder="Your Comment here">
+                                        <br>
+                                        <button type="submit" name="comment" class="button">Comment</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <script>
-                            var modal = document.getElementById('myModal');
-                            var span = document.getElementsByClassName("close")[0];
-                            function openmodal()
+                            function likePic(imgSRC) {
+
+                            }
+                            function openmodal(clickedID)
                             {
+                                console.log(clickedID);
+                                var modal = document.getElementById('myModal');
+                                var img = document.getElementById(clickedID);
+                                var modalImg = document.getElementById('img01');
                                 modal.style.display = "block";
-                            }
-                            span.onclick = function() {
-                                modal.style.display = "none";
-                            }
-                            window.onclick = function(event) {
-                                if (event.target == modal) {
+                                console.log(img);
+                                modalImg.src = img.src;
+                                modalImg.alt = img.id;
+                                console.log(modalImg);
+                                var span = document.getElementsByClassName("close")[0];
+                                span.onclick = function()
+                                {
                                     modal.style.display = "none";
                                 }
                             }

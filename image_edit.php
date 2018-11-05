@@ -170,6 +170,7 @@
                       }
                       xhr.send(vars);
                       document.getElementById("status").innerHTML = "testing";
+                      window.location = "image_edit.php";
                     }
 
                 </script>

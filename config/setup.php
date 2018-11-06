@@ -3,7 +3,7 @@ if (isset($_POST['value']))
 {
   $servername = "localhost";
   $ad_username = "root";
-  // $ad_password = "c3x6TkahjMZCgw";
+//  $ad_password = "c3x6TkahjMZCgw";
   $ad_password = $_POST['value'];
   $dbname = "camagru_db";
 
@@ -35,9 +35,11 @@ if (isset($_POST['value']))
     sub_datetime TIMESTAMP)";
 
   $comments = "CREATE TABLE $dbname.comments (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id LONGTEXT NOT NULL,
     username VARCHAR (255),
-    comment VARCHAR (255)
+    comment VARCHAR (255),
+    datetime TIMESTAMP)
+
   )";
 
   $likes = "CREATE TABLE $dbname.likes (
@@ -69,7 +71,6 @@ if (isset($_POST['value']))
 <html>
   <head>
   	<title>Database</title>
-  	<link rel="stylesheet" type ="text/css" href="./Users/reg_style.css">
   </head>
   <body>
   	<div class="header">

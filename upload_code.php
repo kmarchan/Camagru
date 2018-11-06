@@ -27,14 +27,11 @@ if (isset($_POST['uploadsubmit']))
                 {
                     if ($fileSize < 5000000)
                     {
-                        // merge_picture($fileTmpName, "../Stickers/baboon.png", '../tmp.jpg', 0 , 0);
-                        // test($fileTmpName, "../Stickers/baboon.png", '../tmp.jpg');
                         $_SESSION['image_loc_tmp'] = $fileTmpName;
                         $imagedata = file_get_contents($fileTmpName);
                         $base64 = base64_encode($imagedata);
                         $_SESSION['image_tmp'] = $base64;
                         $_SESSION['image_type'] = strtolower($fileType);
-
                         header("Location: upload_edit.php");
                     }
                     else

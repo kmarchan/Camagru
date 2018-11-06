@@ -85,7 +85,7 @@
                         </div>
                         <br>
 
-                        <a href="upload_edit.php">
+                        <a href="upload_edit.php" >
                           <button id="upload" type="submit" class="camera" align="centre" title="Save">
                             <img src="upload.png" alt="upload" height="30px">
                           </button>
@@ -190,7 +190,6 @@
 
                 var hRatio = img.width / canvas.width ;
                 var vRatio = img.height / canvas.height ;
-                // var ratio  = Math.min ( hRatio, vRatio );
 
                 ctx.drawImage(img, 0,0, canvas.width, canvas.height);
             }

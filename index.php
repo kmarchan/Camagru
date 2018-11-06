@@ -95,31 +95,38 @@
                                     <div class="header" id="head">
                                         <h2>Like and Comment</h2>
                                     </div>
-                                    <form method="post">
+<!--                                    --><?php //include_once ("./config/database.php");
+//                                        $query = $db->prepare("SELECT * FROM camagru_db.comments WHERE `id` LIKE 'img01.src' ORDER BY sub_datetime DESC ");
+//                                        $query->execute();
+//                                        $res = $query->fetchAll();
+//                                        foreach ($res as $tmp) {
+//                                           $info = $tmp;
+//                                           $data = $info['comment'];
+//
+//                                           echo "<p class='comment'>: ";
+//                                    }
+//                                    ?>
+                                    <form method="post" action="index.php">
+                                        <textarea hidden name="base64" id="imgsrc"></textarea>
                                         <button onclick="likePic(this.src)" name="likePic" class="button">Like</button>
-                                        <br>
-                                        <input type="text" pattern="[^()/><\][\\\x22,;|]+" title="No special characters wil be accepted" placeholder="Your Comment here">
-                                        <br>
-                                        <button type="submit" name="comment" class="button">Comment</button>
+                                        <input type="text" name="comment" pattern="[^()/><\][\\\x22,;|]+" title="No special characters wil be accepted" placeholder="Your Comment here">
+                                        <button type="submit" class="button">Comment</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <script>
-                            function likePic(imgSRC) {
-
-                            }
                             function openmodal(clickedID)
                             {
-                                console.log(clickedID);
                                 var modal = document.getElementById('myModal');
                                 var img = document.getElementById(clickedID);
                                 var modalImg = document.getElementById('img01');
+                                var formimg = document.getElementById('imgsrc');
                                 modal.style.display = "block";
-                                console.log(img);
                                 modalImg.src = img.src;
                                 modalImg.alt = img.id;
-                                console.log(modalImg);
+                                formimg.value = img.src
+
                                 var span = document.getElementsByClassName("close")[0];
                                 span.onclick = function()
                                 {

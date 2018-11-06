@@ -183,10 +183,12 @@
 
     if (isset($_POST['comment']))
     {
+        $id = $_POST['base64'];
         $username = $_SESSION['username'];
         $comment = $_POST['comment'];
         $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
-        $sql = "INSERT INTO comments (username, comment) VALUES ('$username', '$comment')";
+        $sql = "INSERT INTO comments (`id`, `username`, `comment`) VALUES ('$id', '$username', '$comment')";
+        $db->exec($sql);
 
     }
 ?>

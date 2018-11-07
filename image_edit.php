@@ -12,12 +12,7 @@
             }
             #videoElement {
                 object-fit: contain;
-                /*position: relative;*/
-                /*background-color: #666;*/
-                /*margin-left: 10%;*/
-                /*top: 0;*/
-                /*left: 0;*/
-                /*margin: auto;*/
+
             }
             .button, .camera {
                 background-color: #EFCE5B;
@@ -138,7 +133,6 @@
                         context.drawImage(myCanvas, 0, 0, width, height);
                         img.src = can.toDataURL('image/png');
                         img.setAttribute("height", "100");
-                        console.log(img.src);
                         snp.insertBefore(img, snp.firstChild);
 
                         img.addEventListener("click", save);
@@ -153,7 +147,6 @@
                           var usr = '<?php echo $_SESSION["username"]; ?>'
                           var pic = (encodeURIComponent(JSON.stringify(this.src)));
                           var vars = "username="+usr+"&pic="+pic+"&save=true";
-                          console.log (vars);
                           xhr.open("POST", url, true);
                           xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                           xhr.onreadystatechange = function()
@@ -166,7 +159,6 @@
                           }
                       }
                       xhr.send(vars);
-                      document.getElementById("status").innerHTML = "testing";
                       window.location = "image_edit.php";
                     }
 

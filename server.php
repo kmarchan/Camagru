@@ -179,6 +179,7 @@
         $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
         $sql = "INSERT INTO images (username, pic) VALUES ('$username', '$pic')";
         $db->exec($sql);
+        unset($_POST['save']);
     }
 
     if (isset($_POST['comment']))
@@ -189,6 +190,39 @@
         $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
         $sql = "INSERT INTO comments (`id`, `username`, `comment`) VALUES ('$id', '$username', '$comment')";
         $db->exec($sql);
+        unset($_POST['comment']);
+    }
+
+    if (isset($_POST['comment_id']))
+    {
+
+        $comment_id = $_POST['comment_id'];
+        $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
+        $sql = $db->prepare("SELECT * FROM camagru_db.likes WHERE image_id LIKE :src");
+        $sql->execute(["src"=>$comment_id]);
+        $result = $sql->fetchAll();
+        echo(count($result)." <strong>Likes</strong><br>");
+        $sql = $db->prepare("SELECT * FROM camagru_db.comments WHERE id LIKE :src");
+        $sql->execute(["src"=>$comment_id]);
+        $result = $sql->fetchAll();
+        foreach ($result as $tmp)
+        {
+            $poster = $tmp['username'];
+            echo ("<strong> $poster </strong> : ".$tmp['comment']."<br>");
+        }
+
+        unset($_POST['comment_id']);
+
+    }
+
+    if (isset($_POST['like_id']))
+    {
+        $id = $_POST['like_id'];
+        $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
+        $sql = ("INSERT INTO likes (`image_id`) VALUES ('$id')");
+        $db->exec($sql);
+        unset($_POST['like_id']);
 
     }
 ?>
+

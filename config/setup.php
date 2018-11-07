@@ -43,8 +43,7 @@ if (isset($_POST['value']))
   )";
 
   $likes = "CREATE TABLE $dbname.likes (
-    image_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    likes VARCHAR (255)
+    image_id INT 
   )";
 
   $conn->exec($deleteDB);

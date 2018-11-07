@@ -91,24 +91,18 @@
                                 <div  class="modal-content">
                                     <span class="close">&times;</span>
 
-                                    <img style="width: 100%" id="img01" style="margin: auto">
+                                    <img style="width: 100%" id="img01" style="margin: auto" ondblclick="likeImg(this.id)">
                                     <div class="header" id="head">
                                         <h2>Like and Comment</h2>
                                     </div>
-<!--                                    --><?php //include_once ("./config/database.php");
-//                                        $query = $db->prepare("SELECT * FROM camagru_db.comments WHERE `id` LIKE 'img01.src' ORDER BY sub_datetime DESC ");
-//                                        $query->execute();
-//                                        $res = $query->fetchAll();
-//                                        foreach ($res as $tmp) {
-//                                           $info = $tmp;
-//                                           $data = $info['comment'];
-//
-//                                           echo "<p class='comment'>: ";
-//                                    }
-//                                    ?>
+
                                     <form method="post" action="index.php">
+                                        <div id="comments">
+<!--                                            --><?php //include ('display_like.php')?>
+                                            <?php include ('server.php')?>
+                                        </div>
                                         <textarea hidden name="base64" id="imgsrc"></textarea>
-                                        <button onclick="likePic(this.src)" name="likePic" class="button">Like</button>
+<!--                                        <button onclick="likePic(this.src)" name="likePic" class="button">Like</button>-->
                                         <input type="text" name="comment" pattern="[^()/><\][\\\x22,;|]+" title="No special characters wil be accepted" placeholder="Your Comment here">
                                         <button type="submit" class="button">Comment</button>
                                     </form>
@@ -122,16 +116,62 @@
                                 var img = document.getElementById(clickedID);
                                 var modalImg = document.getElementById('img01');
                                 var formimg = document.getElementById('imgsrc');
+                                console.log(img.id);
                                 modal.style.display = "block";
                                 modalImg.src = img.src;
+                                // modalImg.id = img.src;
                                 modalImg.alt = img.id;
-                                formimg.value = img.src
+                                formimg.value = img.id;
+
+                                var comment = document.getElementById("comments");
+                                var xhr = new XMLHttpRequest();
+                                var url = "server.php";
+
+                                var vars = "comment_id="+img.id;
+                                xhr.open("POST", url, true);
+                                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                xhr.onreadystatechange = function()
+                                {
+                                    if (xhr.readyState == 4 && xhr.status == 200)
+                                    {
+                                        var return_data = xhr.responseText;
+                                        document.getElementById("comments").innerHTML = return_data;
+                                    }
+                                }
+                                xhr.send(vars);
+                                document.getElementById("comments").innerHTML = "testing";
 
                                 var span = document.getElementsByClassName("close")[0];
                                 span.onclick = function()
                                 {
                                     modal.style.display = "none";
                                 }
+                            }
+
+                            function likeImg(clickedID) {
+                                var modal = document.getElementById('myModal');
+                                var img = document.getElementById(clickedID);
+                                var modalImg = document.getElementById('img01');
+
+                                var img_id = modalImg.alt;
+
+                                var xhr = new XMLHttpRequest();
+                                var url = "server.php";
+
+                                var vars = "like_id="+img.alt;
+                                xhr.open("POST", url, true);
+                                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                                xhr.onreadystatechange = function()
+                                {
+                                    if (xhr.readyState == 4 && xhr.status == 200)
+                                    {
+                                        var return_data = xhr.responseText;
+                                        document.getElementById("comments").innerHTML = return_data;
+                                    }
+                                }
+                                xhr.send(vars);
+                                window.location = 'index.php';
+
                             }
                         </script>
                     </div>

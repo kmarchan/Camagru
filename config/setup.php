@@ -38,12 +38,10 @@ if (isset($_POST['value']))
     id LONGTEXT NOT NULL,
     username VARCHAR (255),
     comment VARCHAR (255),
-    datetime TIMESTAMP)
-
-  )";
+    datetime TIMESTAMP)";
 
   $likes = "CREATE TABLE $dbname.likes (
-    image_id INT 
+    image_id INT
   )";
 
   $conn->exec($deleteDB);

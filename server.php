@@ -224,5 +224,27 @@
         unset($_POST['like_id']);
 
     }
-?>
 
+    if (isset($_POST['del_id']))
+    {
+      $id = $_POST['del_id'];
+      $usr = $_SESSION['username'];
+      $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
+      $query = $db->prepare("SELECT * FROM $dbname.images WHERE username = :usr AND id = :img_id");
+      $query->execute(["usr"=>$usr, "img_id"=>$id]);
+      $result = $query->fetchAll();
+      echo ("$id $usr");
+      if (count($result) == 1)
+      {
+          $query = $db->prepare("DELETE FROM $dbname.images WHERE username = :usr AND id = :img_id");
+          $query->execute(["usr"=>$username, "img_id"=>$id]);
+          $_SESSION['message'] = "Post Deleted";
+      }
+      else
+      {
+          $_SESSION['error'] = "Error deleting, Not your post?";
+      }
+      unset($_POST['del_id']);
+
+    }
+?>

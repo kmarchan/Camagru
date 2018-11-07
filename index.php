@@ -6,15 +6,15 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <style>
             .modal {
-                display: none; 
-                position: fixed; 
+                display: none;
+                position: fixed;
                 z-index: 1;
                 padding-top: 100px;
                 left: 0;
                 top: 0;
                 width: 100%;
-                height: 100%; 
-                overflow: auto; 
+                height: 100%;
+                overflow: auto;
                 background-color: rgb(0,0,0);
                 background-color: rgba(0,0,0,0.4);
             }
@@ -98,14 +98,17 @@
 
                                     <form method="post" action="index.php">
                                         <div id="comments">
-<!--                                            --><?php //include ('display_like.php')?>
                                             <?php include ('server.php')?>
                                         </div>
                                         <textarea hidden name="base64" id="imgsrc"></textarea>
-<!--                                        <button onclick="likePic(this.src)" name="likePic" class="button">Like</button>-->
                                         <input type="text" name="comment" pattern="[^()/><\][\\\x22,;|]+" title="No special characters wil be accepted" placeholder="Your Comment here">
                                         <button type="submit" class="button">Comment</button>
                                     </form>
+                                    <form method="post" action="index.php">
+                                      <textarea hidden name="del_id" id="imgid"></textarea>
+                                      <button type="submit">delete</button>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
@@ -116,12 +119,14 @@
                                 var img = document.getElementById(clickedID);
                                 var modalImg = document.getElementById('img01');
                                 var formimg = document.getElementById('imgsrc');
+                                var del = document.getElementById('imgid');
                                 console.log(img.id);
                                 modal.style.display = "block";
                                 modalImg.src = img.src;
                                 // modalImg.id = img.src;
                                 modalImg.alt = img.id;
                                 formimg.value = img.id;
+                                del.value = img.id;
 
                                 var comment = document.getElementById("comments");
                                 var xhr = new XMLHttpRequest();

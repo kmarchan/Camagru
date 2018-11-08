@@ -233,11 +233,10 @@
       $query = $db->prepare("SELECT * FROM $dbname.images WHERE username = :usr AND id = :img_id");
       $query->execute(["usr"=>$usr, "img_id"=>$id]);
       $result = $query->fetchAll();
-      echo ("$id $usr");
       if (count($result) == 1)
       {
           $query = $db->prepare("DELETE FROM $dbname.images WHERE username = :usr AND id = :img_id");
-          $query->execute(["usr"=>$username, "img_id"=>$id]);
+          $query->execute(["usr"=>$usr, "img_id"=>$id]);
           $_SESSION['message'] = "Post Deleted";
       }
       else

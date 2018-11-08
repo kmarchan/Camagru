@@ -26,6 +26,7 @@ if (isset($_POST['value']))
     email VARCHAR (255) UNIQUE,
     password VARCHAR (1024),
     confirmed BIT DEFAULT 0,
+    notify BIT DEFAULT 1,
     confirmcode VARCHAR (1024))";
 
   $images = "CREATE TABLE $dbname.images (

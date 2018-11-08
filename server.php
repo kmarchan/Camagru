@@ -184,12 +184,34 @@
 
     if (isset($_POST['comment']))
     {
+        $headers = "From: noreply@localhost.co.za\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
         $id = $_POST['base64'];
         $username = $_SESSION['username'];
         $comment = $_POST['comment'];
         $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
         $sql = "INSERT INTO comments (`id`, `username`, `comment`) VALUES ('$id', '$username', '$comment')";
+
+        $find_email =  $db->prepare("SELECT * FROM images INNER JOIN users ON users.username = images.username WHERE images.id = :img_id");
+        $find_email->execute(["img_id"=>$id]);
+        $res= $find_email->fetchAll();
         $db->exec($sql);
+        foreach ($res as $tmp)
+        {
+            $email = $tmp["email"];
+            $notify = $tmp['notify'];
+        }
+        $_SESSION['message'] =  $email. " | " .$notify;
+        if ($notify == 1)
+        {
+            mail($email, "Notification","<h1> $username commented on one of your posts!</h1>
+        
+        They Said \"$comment\"<br />
+
+        <h2>Enjoy</h2>
+        " , $headers);
+        }
         unset($_POST['comment']);
     }
 
@@ -217,12 +239,33 @@
 
     if (isset($_POST['like_id']))
     {
+        $headers = "From: noreply@localhost.co.za\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
         $id = $_POST['like_id'];
         $db = new PDO("mysql:host=$servername;dbname=$dbname", $ad_username, $ad_password, $opt);
         $sql = ("INSERT INTO likes (`image_id`) VALUES ('$id')");
         $db->exec($sql);
-        unset($_POST['like_id']);
 
+        $find_email =  $db->prepare("SELECT * FROM images INNER JOIN users ON users.username = images.username WHERE images.id = :img_id");
+        $find_email->execute(["img_id"=>$id]);
+        $res= $find_email->fetchAll();
+
+        foreach ($res as $tmp)
+        {
+            $email = $tmp["email"];
+            $notify = $tmp['notify'];
+        }
+        if ($notify == 1)
+        {
+            mail($email, "Notification","<h1> Someone liked one of your posts!.</h1>
+        
+        Go like them back!<br />
+
+        <h2>Enjoy</h2>
+        ;" , $headers);
+        }
+        unset($_POST['like_id']);
     }
 
     if (isset($_POST['del_id']))
@@ -246,4 +289,5 @@
       unset($_POST['del_id']);
 
     }
+
 ?>
